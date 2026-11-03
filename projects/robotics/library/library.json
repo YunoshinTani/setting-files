@@ -1,0 +1,35 @@
+{
+  "name": "lib-name",
+  "version": "0.0.0",
+  "description": "nbed を利用する STM32F446RE 向けライブラリのひな型。",
+  "license": "MIT",
+  "keywords": [
+    "nbed",
+    "stm32",
+    "stm32f4",
+    "nucleo-f446re",
+    "hal"
+  ],
+  "frameworks": [
+    "stm32cube"
+  ],
+  "platforms": [
+    "ststm32"
+  ],
+  "dependencies": {
+    "nbed": "https://github.com/nnctroboticsclub/nbed/archive/refs/tags/v0.8.0.zip"
+  },
+  "export": {
+    "include": [
+      "include",
+      "scripts/extra_script.py",
+      "src",
+      "library.json",
+      "README.md",
+      "LICENSE"
+    ]
+  },
+  "build": {
+    "extraScript": "scripts/extra_script.py"
+  }
+}

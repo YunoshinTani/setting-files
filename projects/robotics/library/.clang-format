@@ -1,0 +1,69 @@
+# clangd 23.1.0 内蔵の clang-format 用。指定しない項目は Google に従う。
+BasedOnStyle: Google
+Language: Cpp
+Standard: c++23  # 整形時の構文判定。コンパイラの言語設定は DB に従う。
+
+# インデント・行幅
+AccessModifierOffset: -1
+ColumnLimit: 80
+ContinuationIndentWidth: 4
+IndentCaseLabels: true
+IndentPPDirectives: None
+IndentWidth: 2
+NamespaceIndentation: None
+TabWidth: 2  # インデント幅と統一
+UseTab: Never
+
+# 括弧・型・空白（Google の配置）
+AlignAfterOpenBracket: true  # 開き括弧の後の要素を揃える
+BreakBeforeBraces: Attach  # 開始ブレースを宣言・制御文と同じ行に置く
+Cpp11BracedListStyle: FunctionCall  # 波括弧の初期化リストを関数の引数のように整形
+DerivePointerAlignment: false
+PointerAlignment: Left
+SpaceBeforeParens: ControlStatements
+SpacesBeforeTrailingComments: 2
+SpacesInAngles: Never  # テンプレート引数の山括弧の内側に空白を入れない
+SpacesInParens: Never  # 丸括弧の内側に空白を入れない
+
+# 改行・短い制御文
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: All  # Google に合わせ、短い関数を許可
+AllowShortIfStatementsOnASingleLine: Never  # 組み込み: 分岐を見落としにくくする
+AllowShortLambdasOnASingleLine: All  # Google に合わせる
+AllowShortLoopsOnASingleLine: false  # 組み込み: ループ本体を別行にする
+BreakAfterReturnType: Automatic  # 戻り値の後の改行は行幅に応じて判断
+BreakTemplateDeclarations: Yes  # テンプレート宣言の次を改行
+PackArguments:  # 行幅に収まる呼び出し引数は同じ行に詰める
+  BinPack: BinPack
+PackConstructorInitializers: NextLine  # 初期化子が長い場合は次の行にもまとめて配置
+PackParameters:  # Google の引数宣言配置を明示
+  BinPack: BinPack
+SeparateDefinitionBlocks: Always
+
+# include: 対応ヘッダー → C 系 → C++ / その他の山括弧 → 引用符のヘッダー
+# Google の分類を明示。対応ヘッダーは自動的に最優先になる。
+IncludeBlocks: Regroup  # 空行を含めて並べ直し、分類ごとに区切る
+IncludeCategories:
+  - Regex: '^<ext/.*\.h>'
+    Priority: 2
+  - Regex: '^<.*\.h>'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+IncludeIsMainRegex: '([-_](test|unittest))?$'
+SortIncludes:  # 並び順を現行表記で明示
+  Enabled: true
+  IgnoreCase: false
+
+# コメント・空行・ファイル末尾
+FixNamespaceComments: true
+InsertNewlineAtEOF: true
+KeepEmptyLines:  # ファイル・ブロックの端の余分な空行を除去
+  AtEndOfFile: false
+  AtStartOfBlock: false  # Google に合わせ、ブロック先頭の空行を削除
+  AtStartOfFile: false
+LineEnding: LF  # OS によらず LF に統一
+MaxEmptyLinesToKeep: 1
+ReflowComments: IndentOnly  # 日本語・表の改行を保ち、字下げのみ整える

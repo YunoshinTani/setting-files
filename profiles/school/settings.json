@@ -1,0 +1,354 @@
+// 生成元: sources/common.settings.jsonc + sources/school.overrides.jsonc
+// 編集は生成元へ。再生成: ./scripts/Build-Profiles.ps1
+{
+  "files.encoding": "utf8",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.linkedEditing": true,
+  "editor.autoIndentOnPaste": true,
+  "editor.autoIndentOnPasteWithinString": false,
+  "editor.cursorBlinking": "solid",
+  "editor.renderWhitespace": "all",
+  "editor.guides.indentation": true,
+  "editor.guides.bracketPairs": true,
+  "editor.semanticHighlighting.enabled": true,
+  "editor.unicodeHighlight.allowedLocales": {
+    "ja": true
+  },
+  "[c]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "[cpp]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "editor.fontFamily": "'Fira Code', 'FiraCode Nerd Font Mono', monospace",
+  "editor.fontLigatures": true,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.activityBar.compact": true,
+  "workbench.tree.expandMode": "doubleClick",
+  "explorer.sortOrder": "type",
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "task.saveBeforeRun": "always",
+  "window.confirmSaveUntitledWorkspace": false,
+  "files.exclude": {
+    ".cache": true,
+    "compile_commands.json": true
+  },
+  "search.exclude": {
+    ".vscode/**": true,
+    "*.code-workspace": true,
+    ".editorconfig": true,
+    ".gitignore": true,
+    ".gitattributes": true,
+    ".clangd": true,
+    ".clang-format": true,
+    ".clang-tidy": true,
+    ".latexmkrc": true,
+    "platformio.ini": true
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": "${env:windir}\\System32\\cmd.exe",
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash",
+      "icon": "terminal-git-bash"
+    }
+  },
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.suggest.enabled": true,
+  "terminal.integrated.suggest.suggestOnTriggerCharacters": true,
+  "terminal.integrated.suggest.insertTrailingSpace": true,
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "on",
+    "arguments": "on",
+    "unknown": "on"
+  },
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": true,
+    "editor.unicodeHighlight.invisibleCharacters": true,
+    "files.trimTrailingWhitespace": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off"
+    }
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": true
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.viewSessions.orientation": "stacked",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "{hexdiff}:/**/*.*": "hexEditor.hexedit",
+    "*.pdf": "latex-workshop-pdf-hook"
+  },
+  "codesnap.shutterAction": "copy",
+  "workbench.browser.searchEngine": "google",
+  "security.workspace.trust.untrustedFiles": "open",
+  "settingsSync.ignoredSettings": [
+    "-window.zoomLevel"
+  ],
+  "window.zoomLevel": -2,
+  "clangd.checkUpdates": true,
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.doxygen.generatedStyle": "/**",
+  "[tex]": {
+    "editor.wordWrap": "on",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "[latex]": {
+    "editor.wordWrap": "on",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "[bibtex]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "latex-workshop.intellisense.package.enabled": true,
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoClean.run": "never",
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.build.rootfileInStatus": true,
+  "latex-workshop.latex.outDir": "%DIR%/export",
+  "latex-workshop.latex.auxDir": "%OUTDIR%",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.zoom": "page-width",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.latex.clean.method": "command",
+  "latex-workshop.latex.clean.command": "latexmk",
+  "latex-workshop.latex.clean.args": [
+    "-norc",
+    "-cd",
+    "-outdir=%OUTDIR%",
+    "-c",
+    "%TEX%"
+  ],
+  "terminal.integrated.env.windows": {
+    "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+  },
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-uplatex",
+      "command": "latexmk",
+      "env": {
+        "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+      },
+      "args": [
+        "-norc",
+        "-cd",
+        "-pdfdvi",
+        "-e",
+        "$latex = 'uplatex %O -kanji=utf8 %S';",
+        "-e",
+        "$dvipdf = 'dvipdfmx %O -o %D %S';",
+        "-e",
+        "$bibtex = 'upbibtex %O %S';",
+        "-e",
+        "$makeindex = 'upmendex %O -o %D %S';",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-platex",
+      "command": "latexmk",
+      "env": {
+        "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+      },
+      "args": [
+        "-norc",
+        "-cd",
+        "-pdfdvi",
+        "-e",
+        "$latex = 'platex %O -kanji=utf8 %S';",
+        "-e",
+        "$dvipdf = 'dvipdfmx %O -o %D %S';",
+        "-e",
+        "$bibtex = 'pbibtex %O %S';",
+        "-e",
+        "$makeindex = 'mendex %O -o %D %S';",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-lualatex",
+      "command": "latexmk",
+      "env": {
+        "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+      },
+      "args": [
+        "-norc",
+        "-cd",
+        "-lualatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-pdflatex",
+      "command": "latexmk",
+      "env": {
+        "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+      },
+      "args": [
+        "-norc",
+        "-cd",
+        "-pdf",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-xelatex",
+      "command": "latexmk",
+      "env": {
+        "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+      },
+      "args": [
+        "-norc",
+        "-cd",
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-project",
+      "command": "latexmk",
+      "env": {
+        "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0"
+      },
+      "args": [
+        "-norc",
+        "-r",
+        "%DIR%/.latexmkrc",
+        "-cd",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk (uplatex + dvipdfmx)",
+      "tools": [
+        "latexmk-uplatex"
+      ]
+    },
+    {
+      "name": "latexmk (platex + dvipdfmx)",
+      "tools": [
+        "latexmk-platex"
+      ]
+    },
+    {
+      "name": "latexmk (LuaLaTeX)",
+      "tools": [
+        "latexmk-lualatex"
+      ]
+    },
+    {
+      "name": "latexmk (pdfLaTeX)",
+      "tools": [
+        "latexmk-pdflatex"
+      ]
+    },
+    {
+      "name": "latexmk (XeLaTeX)",
+      "tools": [
+        "latexmk-xelatex"
+      ]
+    },
+    {
+      "name": "latexmk (project)",
+      "tools": [
+        "latexmk-project"
+      ]
+    }
+  ],
+  "editor.unicodeHighlight.allowedCharacters": {
+    "，": true,
+    "．": true
+  },
+  "cSpell.userWords": [
+    "nagaoka",
+    "Nbed",
+    "pageref",
+    "Tani",
+    "tetris",
+    "yahiko",
+    "Yunoshin"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  // 共有するコード規約・ツール・ファイルの扱い。
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+
+  // ヘッダーはC++として扱う。C主体のプロジェクトでは *.h の関連付けを変更する。
+  "files.associations": {
+    "*.h": "cpp",
+    ".clangd": "yaml",
+    ".clang-format": "yaml",
+    ".latexmkrc": "perl",
+    "LICENSE": "plaintext"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "公開: ホーム",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "home"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開: プロフィール",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "profile"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開: 掲示板",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "ta2ch"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開: 日記",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "diary"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開: ファイル便",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "share"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開: 縁日公式サイト",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "festival"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開: Web全6サイト",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "publish", "--site", "all"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "公開内容の確認",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "plan", "--site", "${input:webSite}"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "SSH接続の確認",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "check-connection"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "直前の公開を戻す",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/publish.py", "rollback", "--deployment", "${input:webDeployment}"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    },
+    {
+      "label": "Webの検証",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Web検証: CGI", "Web検証: 公開処理"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Web検証: CGI",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tests/linux_regression.py"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Web検証: 公開処理",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tests/deployment_test.py"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Web開発: clangd設定を更新",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/web/tools/compile_commands.py", "--workspace", "${workspaceFolder}"],
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated"}
+    }
+  ],
+  "inputs": [
+    {
+      "id": "webSite",
+      "type": "pickString",
+      "description": "確認するサイト（allは縁日を含む6サイト）",
+      "options": ["all", "home", "profile", "ta2ch", "diary", "share", "festival"],
+      "default": "all"
+    },
+    {
+      "id": "webDeployment",
+      "type": "promptString",
+      "description": "復元する公開ID。latestは全6サイト共通で直前の公開",
+      "default": "latest"
+    }
+  ]
+}

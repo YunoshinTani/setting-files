@@ -1,0 +1,134 @@
+{
+  "window.zoomLevel": -2,
+
+  // C/C++ 授業。デバッグは C/C++ 拡張、補完・整形は clangd が担当。
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "clangd.checkUpdates": true,
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.doxygen.generatedStyle": "/**",
+
+  // 文書は折り返しを有効化し、自動整形を無効化する。
+  "[tex]": {
+    "editor.wordWrap": "on",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "[latex]": {
+    "editor.wordWrap": "on",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "[bibtex]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "latex-workshop.intellisense.package.enabled": true,
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoClean.run": "never",
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.build.rootfileInStatus": true,
+  "latex-workshop.latex.outDir": "%DIR%/export",
+  "latex-workshop.latex.auxDir": "%OUTDIR%",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.zoom": "page-width",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.latex.clean.method": "command",
+  "latex-workshop.latex.clean.command": "latexmk",
+  "latex-workshop.latex.clean.args": ["-norc", "-cd", "-outdir=%OUTDIR%", "-c", "%TEX%"],
+  // TeX Live と MSYS2 の併用時も Windows ネイティブの Perl を使う。
+  "terminal.integrated.env.windows": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+
+  // 既存文書は % !LW recipe で選択。共有設定がある文書は project レシピを使う。
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-uplatex",
+      "command": "latexmk",
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+      "args": [
+        "-norc", "-cd", "-pdfdvi",
+        "-e", "$latex = 'uplatex %O -kanji=utf8 %S';",
+        "-e", "$dvipdf = 'dvipdfmx %O -o %D %S';",
+        "-e", "$bibtex = 'upbibtex %O %S';",
+        "-e", "$makeindex = 'upmendex %O -o %D %S';",
+        "-synctex=1", "-interaction=nonstopmode", "-halt-on-error", "-file-line-error",
+        "-outdir=%OUTDIR%", "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-platex",
+      "command": "latexmk",
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+      "args": [
+        "-norc", "-cd", "-pdfdvi",
+        "-e", "$latex = 'platex %O -kanji=utf8 %S';",
+        "-e", "$dvipdf = 'dvipdfmx %O -o %D %S';",
+        "-e", "$bibtex = 'pbibtex %O %S';",
+        "-e", "$makeindex = 'mendex %O -o %D %S';",
+        "-synctex=1", "-interaction=nonstopmode", "-halt-on-error", "-file-line-error",
+        "-outdir=%OUTDIR%", "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-lualatex",
+      "command": "latexmk",
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+      "args": [
+        "-norc", "-cd", "-lualatex",
+        "-synctex=1", "-interaction=nonstopmode", "-halt-on-error", "-file-line-error",
+        "-outdir=%OUTDIR%", "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-pdflatex",
+      "command": "latexmk",
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+      "args": [
+        "-norc", "-cd", "-pdf",
+        "-synctex=1", "-interaction=nonstopmode", "-halt-on-error", "-file-line-error",
+        "-outdir=%OUTDIR%", "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-xelatex",
+      "command": "latexmk",
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+      "args": [
+        "-norc", "-cd", "-xelatex",
+        "-synctex=1", "-interaction=nonstopmode", "-halt-on-error", "-file-line-error",
+        "-outdir=%OUTDIR%", "%DOC%"
+      ]
+    },
+    {
+      "name": "latexmk-project",
+      "command": "latexmk",
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
+      "args": ["-norc", "-r", "%DIR%/.latexmkrc", "-cd", "-outdir=%OUTDIR%", "%DOC%"]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    { "name": "latexmk (uplatex + dvipdfmx)", "tools": ["latexmk-uplatex"] },
+    { "name": "latexmk (platex + dvipdfmx)", "tools": ["latexmk-platex"] },
+    { "name": "latexmk (LuaLaTeX)", "tools": ["latexmk-lualatex"] },
+    { "name": "latexmk (pdfLaTeX)", "tools": ["latexmk-pdflatex"] },
+    { "name": "latexmk (XeLaTeX)", "tools": ["latexmk-xelatex"] },
+    { "name": "latexmk (project)", "tools": ["latexmk-project"] }
+  ],
+  "workbench.editorAssociations": {
+    "{hexdiff}:/**/*.*": "hexEditor.hexedit",
+    "*.pdf": "latex-workshop-pdf-hook"
+  },
+  "editor.unicodeHighlight.allowedCharacters": { "，": true, "．": true },
+  "cSpell.userWords": ["nagaoka", "Nbed", "pageref", "Tani", "tetris", "yahiko", "Yunoshin"]
+}

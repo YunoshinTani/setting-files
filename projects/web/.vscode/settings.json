@@ -1,0 +1,180 @@
+{
+  // Webサイト・CGI・公開ツールの共有設定。テーマ・フォント・端末は個人設定。
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.linkedEditing": true,
+  "editor.autoIndent": "full",
+  "editor.renderWhitespace": "all",
+  "editor.guides.indentation": true,
+  "editor.guides.bracketPairs": true,
+  "editor.semanticHighlighting.enabled": true,
+  "editor.unicodeHighlight.allowedLocales": { "ja": true },
+  "editor.quickSuggestions": {"other": "on", "strings": "on", "comments": "off"},
+  // 自動保存は整形せず、Ctrl+S時に言語別の整形を実行する。
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "[c]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.rulers": [80],
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnPaste": true
+  },
+  "[cpp]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.rulers": [80],
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnPaste": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnSave": true
+  },
+  "[less]": {
+    "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    // Python整形拡張の導入は前提にしない。
+    "editor.formatOnSave": false
+  },
+  "[makefile]": {
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": false
+  },
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": true,
+    "editor.unicodeHighlight.invisibleCharacters": true,
+    "files.trimTrailingWhitespace": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {"other": "off", "comments": "off", "strings": "off"}
+  },
+  "files.associations": {
+    "*.h": "cpp",
+    "**/ta2ch/include/*.h": "c",
+    "**/common/include/security*.h": "c",
+    ".clangd": "yaml",
+    ".clang-format": "yaml",
+    "LICENSE": "plaintext"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "html.format.wrapLineLength": 100,
+  "css.validate": true,
+  "js/ts.validate.enabled": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.extraPaths": ["${workspaceFolder}/web/tools"],
+  "python.analysis.exclude": [
+    "**/node_modules", "**/__pycache__", ".cache", ".web-publish", ".festival-publish",
+    "web/festival/public"
+  ],
+  // 検証・公開はtasks.jsonを入口にする。Windows上で自動ビルドを開始しない。
+  "makefile.configureOnOpen": false,
+  "makefile.configureOnEdit": false,
+  "task.saveBeforeRun": "always",
+  "git.autofetch": true,
+  "git.openRepositoryInParentFolders": "never",
+  "todo-tree.tree.showBadges": true,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.filtering.useBuiltInExcludes": "search excludes",
+  "C_Cpp.intelliSenseEngine": "disabled",
+  // OS別の絶対パスは生成DBに集約。ARM/PlatformIOのドライバー照会は行わない。
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}",
+    "--background-index",
+    "--clang-tidy"
+  ],
+  "clangd.fallbackFlags": ["-std=c++17"],
+  "clangd.onConfigChanged": "restart",
+  "clangd.onConfigChangedForceEnable": true,
+  "files.exclude": {
+    ".git": true,
+    ".cache": true,
+    ".web-publish": true,
+    ".festival-publish": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "compile_commands.json": true
+  },
+  // ルートDBはclangdの再読込に必要なので監視対象に残す。build/は一覧で確認可能。
+  "files.watcherExclude": {
+    ".cache/**": true,
+    ".web-publish/**": true,
+    ".festival-publish/**": true,
+    "web/*/build/**": true,
+    "web/*/data/**": true,
+    "web/festival/public/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true
+  },
+  "search.exclude": {
+    ".cache/**": true,
+    ".web-publish/**": true,
+    ".festival-publish/**": true,
+    "web/*/build/**": true,
+    "web/*/data/**": true,
+    "web/festival/public/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true,
+    "compile_commands.json": true,
+    "web/common/include/security_policy.h": true,
+    "web/home/public/script.js": true,
+    "web/profile/public/script.js": true,
+    "web/ta2ch/public/site.css": true,
+    "web/diary/public/site.css": true,
+    "web/share/public/site.css": true
+  }
+}

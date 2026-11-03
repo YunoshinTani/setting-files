@@ -1,0 +1,19 @@
+/export/
+
+# Legacy builds outside export/. PDFs and source/style files are not matched.
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc

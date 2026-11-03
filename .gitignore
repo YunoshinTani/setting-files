@@ -1,0 +1,5 @@
+machine/*.local.jsonc
+profiles-local/
+backups/
+.verification/
+projects/school-latex/export/

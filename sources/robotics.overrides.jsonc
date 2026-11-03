@@ -1,0 +1,70 @@
+{
+  "window.zoomLevel": -3,
+  "files.eol": "\n",
+  "editor.quickSuggestions": { "other": "on", "strings": "on", "comments": "off" },
+
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnPaste": true
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnPaste": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "clangd.checkUpdates": true,
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.doxygen.generatedStyle": "/**",
+  "platformio-ide.disablePIOHomeStartup": true,
+  "platformio-ide.autoOpenPlatformIOIniFile": false,
+  "python.analysis.typeCheckingMode": "standard",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.openRepositoryInParentFolders": "never",
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "todo-tree.tree.showBadges": true,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.filtering.useBuiltInExcludes": "search excludes",
+  "chat.sessionSync.enabled": true,
+
+  // 個人辞書。共有する語はプロジェクトの cSpell.words に追加する。
+  "cSpell.userWords": [
+    "ADDRESSINGMODE", "AHBCLK", "AUTONEGO", "AUTONEGOTIATION", "AUTORELOAD",
+    "bldc", "BREAKPOLARITY", "Bufferable", "bugprone", "CCMRAM", "CLKSOURCE",
+    "CLOCKDIVISION", "Constexpr", "Cplt", "cppcoreguidelines", "CRYP", "cstdio",
+    "cubef", "CYCCNT", "CYCCNTENA", "DCMI", "Deconfigure", "DEMCR", "DFSDM",
+    "DIRECTTI", "DNBED", "DUALADDRESS", "DUALSHOCK", "DUTYCYCLE", "ENCODERMODE",
+    "estack", "EXTC", "EXTERNALTRIGCONVEDGE", "EXTERNALTRIGINJECCONVEDGE", "EXTI",
+    "fdata", "ffunction", "flto", "FMPI", "FMPSMBUS", "FULLDUPLEX",
+    "gccarmnoneeabi", "GPIOA", "GPIOB", "GPIOC", "GPIOD", "GPIOE", "GPIOF",
+    "GPIOG", "GPIOH", "hadc", "HALFDUPLEX", "hcan", "HCLK", "hdma", "Hdop",
+    "Hiroto", "HRTIM", "HSICALIBRATION", "htim", "huart", "HWCONTROL",
+    "ICPOLARITY", "ICPSC", "ICSELECTION", "Iinclude", "Isrc", "IWDG", "korobo",
+    "kosen", "lcrypt", "ldscript", "LINKDMA", "LPTIM", "lsqlite", "LTDC",
+    "Masahito", "mbed", "MDIOS", "Mecanum", "microcontrollers", "MINC", "msys",
+    "nagaoka", "Nakashima", "Nakazawa", "nbed", "nitnc", "nkrc", "noppe",
+    "NOSTRETCH", "NUCLEO", "NVIC", "OCFAST", "OCIDLESTATE", "OCMODE",
+    "OCNIDLESTATE", "OCNPOLARITY", "OCPOLARITY", "OPAMP", "OREFLAG",
+    "OSCILLATORTYPE", "OSSI", "OSSR", "PCCARD", "PCLK", "Periph", "PERIPHCLK",
+    "PINC", "PIOENV", "PLLCLK", "PLLM", "PLLMUL", "PLLN", "PLLP", "PLLQ",
+    "PLLR", "PLLSOURCE", "pulsewidth", "Puropo", "QSPI", "retx", "Rihito",
+    "Robomas", "Robstride", "RSSI", "RXBUFNB", "RXNE", "SAMPLETIME", "SDADC",
+    "SMARTCARD", "SMBUS", "SPDIFRX", "stlink", "ststm", "SYSCLK",
+    "SYSCLKSOURCE", "Tani", "tanishi", "TRCENA", "TRGO", "TXBUFNB", "UART",
+    "ucrt", "unflags", "USART", "vararg", "VCOMH", "Vdop", "VOLTAGESCALING",
+    "Wextra", "WWDG", "Yamamoto", "yotsuya", "Yunoshin", "ZITX", "Zoukin"
+  ]
+}

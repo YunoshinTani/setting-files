@@ -1,0 +1,67 @@
+# Web CGI用。clangd 23で検証。実際のC/C++規格とincludeは生成DBから読み込む。
+# python web/tools/compile_commands.py でルートDBを更新する。
+CompileFlags:
+  CompilationDatabase: .
+Index:
+  Background: Build
+  StandardLibrary: true
+Completion:
+  ArgumentLists: Delimiters
+  HeaderInsertion: IWYU
+Documentation:
+  CommentFormat: Doxygen
+Hover:
+  ShowAKA: true
+InlayHints:
+  Enabled: true
+  BlockEnd: false
+  DeducedTypes: true
+  DefaultArguments: true
+  Designators: false
+  ParameterNames: true
+  TypeNameLimit: 24
+
+---
+# 掲示板とC/C++共用のセキュリティヘッダーはCとして単独でも解析する。
+# C++のフォールバックコマンドを推定した場合も -std=c++17 を持ち込まない。
+If:
+  PathMatch:
+    - 'web/.*\.c'
+    - 'web/ta2ch/include/.*\.h'
+    - 'web/common/include/security(_policy)?\.h'
+CompileFlags:
+  Remove: [-std=*, -x]
+  Add: [-xc, -std=gnu11]
+
+---
+# プロジェクトの実装だけを検査。STM32/HAL向けの例外や命名制約は適用しない。
+If:
+  PathMatch: 'web/(common/include|ta2ch/(src|include)|diary/(src|include)|share/(src|include)|tests)/.*\.(c|cc|cpp|h|hpp)'
+  PathExclude:
+    - 'web/diary/include/sqlite3(ext)?\.h'
+    - 'web/common/include/security_policy\.h'
+Diagnostics:
+  ClangTidy:
+    FastCheckFilter: Strict
+    Add:
+      - bugprone-*
+      - clang-analyzer-*
+      - performance-*
+    Remove:
+      - bugprone-easily-swappable-parameters
+
+---
+# 外部配布ヘッダー・生成物は背景索引や追加lintの対象にしない。
+If:
+  PathMatch:
+    - 'web/share/app/.*'
+    - 'web/diary/include/sqlite3(ext)?\.h'
+    - 'web/common/include/security_policy\.h'
+    - 'web/[^/]+/build/.*'
+Index:
+  Background: Skip
+Diagnostics:
+  MissingIncludes: None
+  UnusedIncludes: None
+  ClangTidy:
+    Remove: ['*']

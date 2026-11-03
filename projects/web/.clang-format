@@ -1,0 +1,43 @@
+# WebのC/C++ CGI用。clangd 23内蔵のclang-formatで検証。
+# 解析・ビルドの規格はcompile_commands.json、ここは整形の規約だけを指定する。
+BasedOnStyle: Google
+Language: Cpp
+Standard: c++17
+
+IndentWidth: 2
+ContinuationIndentWidth: 4
+TabWidth: 2
+UseTab: Never
+ColumnLimit: 80
+AccessModifierOffset: -1
+IndentCaseLabels: true
+NamespaceIndentation: None
+BreakBeforeBraces: Attach
+DerivePointerAlignment: false
+PointerAlignment: Left
+SpaceBeforeParens: ControlStatements
+SpacesBeforeTrailingComments: 2
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+SeparateDefinitionBlocks: Always
+
+# 対応ヘッダー、C系、C++系、プロジェクト内ヘッダーの順に分類する。
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<.*\.h>'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+IncludeIsMainRegex: '([-_](test|unittest))?$'
+SortIncludes:
+  Enabled: true
+  IgnoreCase: false
+
+# CGI内の日本語やHTMLの説明文は、コメントの字下げだけ整える。
+ReflowComments: IndentOnly
+FixNamespaceComments: true
+LineEnding: LF
+InsertNewlineAtEOF: true
+MaxEmptyLinesToKeep: 1
