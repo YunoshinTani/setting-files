@@ -2,8 +2,11 @@
   // 編集・自動保存・ビルド動作を共有。テーマ・フォント・PDF表示・AIは個人設定。
   "files.encoding": "utf8",
   "files.eol": "\n",
+  "files.insertFinalNewline": true,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
+  // 自動保存の待ち時間・個人設定によらず、タスク開始前に保存する。
+  "task.saveBeforeRun": "always",
 
   // 新規ファイルはスペース2個。既存ファイルのインデントは自動判定する。
   "editor.tabSize": 2,
@@ -63,11 +66,13 @@
     }
   },
 
-  // 全員が .latexmkrc の engine を使う。古い !TeX program 等の迂回を防ぐ。
+  // 共通ビルドがTeX先頭のエンジン指定を読み、latexmkで文献・再実行を管理する。
   "latex-workshop.intellisense.package.enabled": true,
   "latex-workshop.latex.autoBuild.run": "onSave",
   "latex-workshop.latex.build.rootfileInStatus": true,
   "latex-workshop.latex.build.enableMagicComments": false,
+  // 個人設定の外部ビルドコマンドで共有レシピを迂回しない。
+  "latex-workshop.latex.external.build.command": "",
   "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.outDir": "%DIR%/export",
   "latex-workshop.latex.auxDir": "%OUTDIR%",
@@ -76,29 +81,34 @@
   "latex-workshop.latex.tools": [
     {
       "name": "latexmk-project",
-      "command": "latexmk",
-      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0" },
-      "args": ["-norc", "-r", "%DIR%/.latexmkrc", "-cd", "-outdir=%OUTDIR%", "%DOC%"]
+      "command": "texlua",
+      // --engine=auto により、保存時ビルドも個人の環境変数に依存しない。
+      "env": { "TEXLIVE_WINDOWS_TRY_EXTERNAL_PERL": "0", "LATEX_ENGINE": "" },
+      "args": ["%WORKSPACE_FOLDER%/scripts/build.lua", "--engine=auto", "%DOC_EXT%"]
     }
   ],
   "latex-workshop.latex.recipes": [
     { "name": "latexmk (project)", "tools": ["latexmk-project"] }
   ],
   "latex-workshop.latex.clean.method": "command",
-  "latex-workshop.latex.clean.command": "latexmk",
+  "latex-workshop.latex.clean.command": "texlua",
   "latex-workshop.latex.clean.args": [
-    "-norc", "-r", "%DIR%/.latexmkrc", "-cd", "-outdir=%OUTDIR%", "-c", "%TEX%"
+    "%WORKSPACE_FOLDER%/scripts/build.lua", "--engine=auto", "--clean", "%TEX%"
   ],
   "latex-workshop.latex.autoClean.run": "never",
+
+  "git.autofetch": true,
+  // コピー先の親フォルダにある別のリポジトリを自動で開かない。
+  "git.openRepositoryInParentFolders": "never",
 
   // 拡張子のないビルド設定を適切な言語で開く。
   "files.associations": {
     ".latexmkrc": "perl",
+    "latexmkrc": "perl",
     "LICENSE": "plaintext"
   },
   "files.exclude": { ".git": true, ".cache": true },
-  // 単独レポート向け。ルート直下の出力・設定だけを除外する。
-  // 複数文書を親フォルダで開く場合は、説明書に従って除外範囲を変更する。
+  // 各レポートの出力と、任意で追加した個別ビルド設定を検索から除外する。
   "search.exclude": {
     ".vscode/**": true,
     "*.code-workspace": true,
@@ -106,10 +116,10 @@
     ".gitignore": true,
     ".gitattributes": true,
     ".cache/**": true,
-    ".latexmkrc": true,
-    "export/**": true
+    "**/.latexmkrc": true,
+    "**/export/**": true
   },
-  "files.watcherExclude": { "export/**": true },
+  "files.watcherExclude": { ".cache/**": true, "**/export/**": true },
 
   "cSpell.words": [
     "arraystretch", "baselinestretch", "begingroup", "bfseries", "endgroup",

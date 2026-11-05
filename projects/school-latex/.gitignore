@@ -1,4 +1,4 @@
-/export/
+**/export/
 
 # Legacy builds outside export/. PDFs and source/style files are not matched.
 *.aux

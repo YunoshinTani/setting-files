@@ -33,7 +33,15 @@ foreach ($file in $settingsFiles) {
             }
         }
         foreach ($tool in $tools) {
-            if ('-norc' -notin $tool.args) {
+            if ($tool.command -eq 'texlua') {
+                $projectRoot = Split-Path -Parent (Split-Path -Parent $file.FullName)
+                if ($tool.args[0] -ne '%WORKSPACE_FOLDER%/scripts/build.lua' -or
+                    '--engine=auto' -notin $tool.args -or
+                    !(Test-Path -LiteralPath (Join-Path $projectRoot 'scripts/build.lua')) -or
+                    !(Test-Path -LiteralPath (Join-Path $projectRoot 'config/latexmkrc'))) {
+                    throw "Shared LaTeX builder or automatic engine selection missing: $($file.FullName)"
+                }
+            } elseif ('-norc' -notin $tool.args) {
                 throw "Machine-independent build requires -norc: $($tool.name)"
             }
             if ('-pdf' -in $tool.args -and

@@ -1,13 +1,11 @@
-# Shared project settings. Keep this file next to the ROOT .tex file.
-# Set the project default below. LATEX_ENGINE is an optional CLI/CI override.
-# Allowed: uplatex, platex, lualatex, pdflatex, xelatex
+# Shared defaults used by scripts/build.lua. Reports do not need a .latexmkrc.
+# LATEX_ENGINE is selected from the TeX header, or by the command-line helper.
 my $engine = $ENV{'LATEX_ENGINE'} || 'uplatex';
 
 $max_repeat = 5;
 $recorder = 1;
 $out_dir = 'export';
 
-# SyncTeX, readable diagnostics and a prompt-free build for every engine.
 my $options = '-synctex=1 -interaction=nonstopmode -halt-on-error -file-line-error';
 $biber = 'biber %O %S';
 $bibtex = 'bibtex %O %S';
@@ -35,8 +33,5 @@ if ($engine eq 'uplatex') {
     $pdf_mode = 5;
     $xelatex = "xelatex %O $options %S";
 } else {
-    die "Unsupported TeX engine '$engine' in .latexmkrc\n";
+    die "Unsupported TeX engine '$engine'\n";
 }
-
-# Add project-specific custom dependencies (e.g. glossaries) here if needed.
-# Shell escape is deliberately not enabled globally.

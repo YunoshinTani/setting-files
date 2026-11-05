@@ -1,5 +1,46 @@
 # 検証結果
 
+## LaTeXの個別設定を不要化（2026-11-04）
+
+`projects/school-latex/` と公開用LaTeX環境のビルド入口を `scripts/build.lua` に統一。
+`config/latexmkrc` を共通設定とし、TeX先頭のエンジン指定、指定なしのupLaTeX、既存の個別設定を扱います。
+学校用テンプレートは `.vscode/`・`scripts/`・`config/` を配布する構成に変更しました。
+
+- 使用例5フォルダーの `.latexmkrc` をなくし、5エンジン・8通りでPDF・SyncTeX生成に成功。最終ログに未解決の引用・相互参照なし。
+- 空白・日本語を含む別配置先、限定したPATH、空のユーザーTeXツリーと専用キャッシュで確認。
+- 不正な継承環境変数がある場合のビルド・清掃、エンジン指定なしの新規文書、既存の個別設定の優先、対応外・矛盾した指定の拒否、コンパイラー失敗の終了コードを確認。
+- PDF・SyncTeXを保持する清掃と再ビルド、PowerShellヘルパーの外部フォルダーからの実行と `-Engine` 指定、MSYS2でのPOSIXヘルパーを確認。
+- GitHub Actionsのビルド入口も共通処理へ変更。公開用の全Markdownを使用者向けの導入・操作・保守・検証説明に整理。
+
+実行ログはローカルの `.verification/latex-simplified-20261104/` に保存しています。
+別PC実機・macOS / Linux実機・VS Code画面上の操作・GitHub Actionsの実行結果は未確認です。
+既存の実レポートと個人プロファイルは変更していません。
+
+## LaTeX共有設定の更新・移植性確認（2026-11-04）
+
+`projects/school-latex/.vscode/settings.json` をrobotics・webの共有設定と比較し、
+末尾改行・タスク前保存・Gitの自動fetchと親リポジトリ検出の抑制・`.cache/` の監視除外を反映しました。
+個人用の外部ビルドコマンドを無効化し、ビルドツールでは `LATEX_ENGINE` を空にして
+各文書の `.latexmkrc` の既定値を使います。CLI・CIでの一時上書きは引き続き可能です。
+同じ変更を `latex-environment/.vscode/settings.json` に適用しました。
+
+- 両設定のJSONC読み込み、47個のトップレベル設定キーの登録、拡張設定の型・選択肢・非推奨指定、レシピ参照を確認。
+- 既存の `Validate-Settings.ps1` は全22 JSON/JSONCファイルで成功。
+- 両設定の差が、単独レポート用・複数文書用の検索／監視除外の範囲だけであることを確認。
+- 設定値に固定ドライブ・ユーザー固有の絶対パスがないことを確認。
+- 使用例を元のリポジトリ外の、空白・日本語を含む一時フォルダーへコピーし、設定中のビルドコマンド・引数・環境変数で実行。
+- PATHをTeX LiveとWindows標準コマンドだけに制限し、`TEXMFHOME` を空のフォルダーへ変更。専用の `TEXMFVAR`・`TEXMFCONFIG` も使用。
+- 呼び出し元に読み込まれると失敗する `.latexmkrc` を置き、継承環境には不正な `LATEX_ENGINE` と外部Perlを選ぶ値を設定。共有レシピがそれらに左右されず動くことを確認。
+- 学校形式2通り、数式とグラフ3通り、欧文2通り、Biber文献管理1通りの計8通りでPDF・SyncTeXを生成。upLaTeX・pLaTeX・LuaLaTeX・pdfLaTeX・XeLaTeX、BibTeX系・Biberを確認。
+- 最終ログに未解決の引用・相互参照がないことを確認。
+- 設定中の通常清掃でPDF・SyncTeXが残り、補助ファイルが消えることと、清掃後の再ビルド成功を確認。このPCの通常の実行環境でも清掃に成功。
+
+確認環境はVS Code 1.144.1、LaTeX Workshop 10.20.0、TeX Live 2026 / latexmk 4.88です。
+実行ログと機械可読の結果はローカルの `.verification/latex-settings-20261104/` に保存しました。
+導入条件と実機での確認手順は `projects/school-latex/.vscode/README.md` に追記しています。
+別PC実機・macOS / Linux・VS Code画面上の操作は未確認です。
+既存レポート、プロファイル、本文・使用例・ビルド用スクリプトは変更していません。
+
 ## PlatformIOスクリプトのPylance診断を限定調整（2026-10-18）
 
 - 配布元の `projects/robotics/compiledb.py` で、実行時だけ読み込まれる `SCons.Script` と、SConsが提供する `Import`・`env` の3箇所だけに診断別の解析除外を追加。

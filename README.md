@@ -7,15 +7,14 @@
 このPCの既定・学校・部活プロファイルへ適用済みです。
 適用前のファイルは `backups/2026-10-18-before-apply-f4fb0c5a/` に保存しています。
 
-## LaTeX共有設定の更新（2026-10-18）
+## LaTeX共有設定の運用
 
-`V:/7_script/latex-environment/.vscode/settings.json` に、共通・学校用プロファイルから
-編集、自動保存、保存時ビルド、補完、折り返しなどの共有する動作を追加しました。
-同じ内容を `projects/school-latex/.vscode/` に反映しています。
-親フォルダで複数レポートを開く版と、単独レポート向け配布版では、文書ごとの設定・出力先の除外範囲を使い分けます。
-テーマ・フォント・PDF表示などの個人設定は持ち込みません。
+`projects/school-latex/` は、`.vscode/`・`scripts/`・`config/` をまとめて配布する構成です。
+新しいレポートにはTeXファイルだけを置けば共通設定でビルドできます。
+各フォルダーの `.latexmkrc` は任意です。エンジンはTeX先頭の `% !TeX program = ...` で選べます。
+編集・自動保存・保存時ビルド・補完・折り返しを共有し、テーマ・フォント・PDF表示は個人設定です。
 詳しい一覧は [LaTeX共有設定の運用](projects/school-latex/.vscode/README.md) を参照してください。
-プロファイル側には元からある設定のため、この更新によるソース変更・再生成は不要です。
+共有プロジェクト側の設定が適用されるため、プロファイルの再生成は不要です。
 
 ## Nbed設定の確定版（2026-10-18）
 
@@ -66,10 +65,9 @@ CGI 8本と共通テスト1本、および主要な共通ヘッダーの診断�
 | 学校の共有設定 | [projects/school-latex/.vscode/settings.json](projects/school-latex/.vscode/settings.json) | `V:\1_school\template\settings.json` および各LaTeXプロジェクトの `.vscode/settings.json` |
 | 部活の共有設定 | [projects/robotics/.vscode/settings.json](projects/robotics/.vscode/settings.json) | `V:\2_robotics\11_template\template-nbed-project\.vscode\settings.json` および各Nbedプロジェクト |
 
-学校の共有設定は `.latexmkrc` とセットです。`.vscode/settings.json` だけをコピーすると
-ビルド時に `.latexmkrc` が見つからず失敗します。
-学校テンプレート置場では、隣に [.latexmkrc](projects/school-latex/.latexmkrc) も保管し、
-新しいレポートに両方を配布してください。
+学校の共有設定は [projects/school-latex/](projects/school-latex/) の `.vscode/`・`scripts/`・`config/` とセットです。
+`.vscode/settings.json` だけをコピーせず、必要な3フォルダーを親フォルダーへまとめて配置してください。
+各レポートに `.latexmkrc` を配布する必要はありません。
 部活の共有設定は [projects/robotics/](projects/robotics/) の設定一式で管理します。
 既存プロジェクトへ適用するときは、ボード・依存ライブラリなどの `platformio.ini` の値を確認してください。
 各フォルダの `extensions.json` は必要な拡張機能の推薦です。自動インストールはしません。
@@ -167,7 +165,7 @@ PDF表示の好みは学校プロファイルへ置き、保存時ビルド・�
 
 LaTeXは2通りの運用を用意しています。
 
-1. 新規・共有プロジェクト: `projects/school-latex/` を使い、`.latexmkrc` の `engine` 一行で既定値を共有。CLI・CIでは `LATEX_ENGINE` で一時的に上書きできます。
+1. 新規・共有プロジェクト: `projects/school-latex/` の共通ビルドを使います。省略時はupLaTeXで、TeX先頭の `% !TeX program = ...` で変更できます。個別の `.latexmkrc` は任意です。
 2. 既存文書: 学校プロファイルの5種類のレシピを使い、ルート文書の先頭で `% !LW recipe` により選択。
 
 既存文書の例:
@@ -182,7 +180,8 @@ LaTeXは2通りの運用を用意しています。
 未指定では従来の日本語レポートに合わせてupLaTeXを使います。
 `% !TeX program = lualatex` はエンジンを直接呼び出し、latexmkの文献・再実行管理を迂回するため、
 レシピ指定を使用してください。`% !TeX root` は分割文書のルート指定に引き続き使えます。
-新しい共有テンプレートではエンジン選択コメントを無効化して、`.latexmkrc` に一本化します。
+共有テンプレートではLaTeX Workshopによる直接実行を無効にし、共通処理が許可されたエンジン名だけを読みます。
+その後は必ずlatexmkを通すため、文献・相互参照の再実行管理を維持します。
 [LaTeX Workshop の公式ビルド仕様](https://github.com/James-Yu/LaTeX-Workshop/wiki/Compile)
 
 元の学校設定は dvipdfmx をユーザーの `.latexmkrc` に頼っていました。
