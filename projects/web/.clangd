@@ -1,4 +1,4 @@
-# Web CGI用。clangd 23で検証。実際のC/C++規格とincludeは生成DBから読み込む。
+# Web CGI用。clangd 23.1.0。C++23 / GNU C11とincludeは生成DBから読み込む。
 # python web/tools/compile_commands.py でルートDBを更新する。
 CompileFlags:
   CompilationDatabase: .
@@ -23,24 +23,31 @@ InlayHints:
 
 ---
 # 掲示板とC/C++共用のセキュリティヘッダーはCとして単独でも解析する。
-# C++のフォールバックコマンドを推定した場合も -std=c++17 を持ち込まない。
+# C++のフォールバックコマンドを推定した場合も -std=c++23 を持ち込まない。
 If:
   PathMatch:
     - 'web/.*\.c'
     - 'web/ta2ch/include/.*\.h'
-    - 'web/common/include/security(_policy)?\.h'
+    - 'web/common/include/(security(_policy)?|site_design)\.h'
 CompileFlags:
   Remove: [-std=*, -x]
   Add: [-xc, -std=gnu11]
 
 ---
-# プロジェクトの実装だけを検査。STM32/HAL向けの例外や命名制約は適用しない。
+# 自作のC/C++だけを検査。外部ライブラリ内部のincludeは直接追加させない。
 If:
-  PathMatch: 'web/(common/include|ta2ch/(src|include)|diary/(src|include)|share/(src|include)|tests)/.*\.(c|cc|cpp|h|hpp)'
+  PathMatch: 'web/(common/include|ta2ch/(src|include)|diary/(src|include)|share/(src|include)|tests)/.*\.(c|cc|cpp|cxx|h|hpp)'
   PathExclude:
     - 'web/diary/include/sqlite3(ext)?\.h'
     - 'web/common/include/security_policy\.h'
 Diagnostics:
+  Includes:
+    AnalyzeAngledIncludes: false
+    IgnoreHeader: '(^|/)bits/.*'
+  # common.h等が公開する共通APIとCライブラリの集約ヘッダーを維持する。
+  # Strictはこれらに大量の重複includeを提案するため、未定義名はコンパイラで検出。
+  MissingIncludes: None
+  UnusedIncludes: Strict
   ClangTidy:
     FastCheckFilter: Strict
     Add:
@@ -48,7 +55,34 @@ Diagnostics:
       - clang-analyzer-*
       - performance-*
     Remove:
-      - bugprone-easily-swappable-parameters
+      - bugprone-easily-swappable-parameters  # CGI/SQLite APIに多い同型の引数
+
+---
+# 組み込み側のGoogle方針を参考に、C++にだけ有効なチェックを選択する。
+# C APIとの接続に必要なポインター操作や既存の命名・短い制御文は維持する。
+If:
+  PathMatch: 'web/(common/include|(diary|share)/(src|include)|tests)/.*\.(cc|cpp|cxx|h|hpp)'
+  PathExclude:
+    - 'web/common/include/(security(_policy)?|site_design)\.h'
+    - 'web/diary/include/sqlite3(ext)?\.h'
+Diagnostics:
+  ClangTidy:
+    Add:
+      - cppcoreguidelines-slicing
+      - google-build-namespaces
+      - google-build-using-namespace
+      - google-explicit-constructor
+      - google-global-names-in-headers
+      - modernize-redundant-void-arg
+      - modernize-use-equals-default
+      - modernize-use-nullptr
+      - modernize-use-override
+      - modernize-use-using
+      - readability-duplicate-include
+      - readability-misleading-indentation
+      - readability-redundant-control-flow
+      - readability-redundant-smartptr-get
+      - readability-redundant-string-cstr
 
 ---
 # 外部配布ヘッダー・生成物は背景索引や追加lintの対象にしない。
@@ -58,6 +92,7 @@ If:
     - 'web/diary/include/sqlite3(ext)?\.h'
     - 'web/common/include/security_policy\.h'
     - 'web/[^/]+/build/.*'
+    - '(\.cache|\.web-publish|\.festival-publish)/.*'
 Index:
   Background: Skip
 Diagnostics:
